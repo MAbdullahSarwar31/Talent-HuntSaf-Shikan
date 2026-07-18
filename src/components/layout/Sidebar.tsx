@@ -10,7 +10,8 @@ import {
   FileText,
   ShieldCheck,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  LogOut
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -26,36 +27,36 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col justify-between flex-shrink-0 min-h-screen">
+    <aside className="w-64 bg-[#0B4F36] border-r border-[#0D5C3E] text-emerald-100 flex flex-col justify-between flex-shrink-0 min-h-screen shadow-xl z-20 select-none">
       <div>
-        {/* Brand Header */}
-        <div className="h-16 flex items-center px-6 border-b border-slate-800/80 gap-3 bg-slate-950/40">
-          <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-black text-lg shadow-md">
+        {/* Brand Header matching SAF SHIKAN Admin Portal */}
+        <div className="h-20 flex items-center px-6 border-b border-[#0D5C3E] gap-3.5 bg-[#083D2A]/80">
+          <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#0B4F36] font-black text-xl shadow-md flex-shrink-0">
             S
           </div>
           <div>
-            <div className="font-black text-white text-sm tracking-wide flex items-center gap-1.5">
+            <div className="font-black text-white text-sm tracking-wider flex items-center gap-1.5">
               SAF SHIKAN
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-bold uppercase">
+              <span className="text-[10px] bg-emerald-400/20 text-emerald-300 px-1.5 py-0.5 rounded font-bold uppercase border border-emerald-400/30">
                 BI
               </span>
             </div>
-            <div className="text-[11px] text-slate-400 font-medium">Mission Profitability</div>
+            <div className="text-[11px] text-emerald-200/80 font-semibold tracking-wide">ADMIN PORTAL</div>
           </div>
         </div>
 
         {/* Executive Tier Notice */}
-        <div className="px-4 py-3 mx-4 my-4 rounded-lg bg-slate-800/60 border border-slate-700/50 text-[11px] text-slate-400">
-          <div className="flex items-center gap-1.5 text-slate-200 font-bold mb-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-            Executive Intelligence Layer
+        <div className="px-4 py-3 mx-4 my-4 rounded-xl bg-[#083D2A]/60 border border-[#136C4A] text-[11px] text-emerald-200/90 shadow-inner">
+          <div className="flex items-center gap-1.5 text-white font-bold mb-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-300 flex-shrink-0" />
+            Executive BI Layer
           </div>
-          Sits directly above Operational & Operator portals to compute true mission margins.
+          Sits directly above Operational & Operator portals to compute true margins.
         </div>
 
         {/* Navigation Links */}
-        <nav className="px-3 space-y-1">
-          <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+        <nav className="px-3 space-y-1.5">
+          <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-emerald-300/70">
             BI Analytics & Insights
           </div>
           {navItems.map((item) => {
@@ -67,15 +68,15 @@ export const Sidebar: React.FC = () => {
                 end={item.path === '/'}
                 className={({ isActive }) =>
                   clsx(
-                    'flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group',
+                    'flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 group',
                     isActive
-                      ? 'bg-emerald-600/15 text-emerald-400 font-bold border border-emerald-500/30'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                      ? 'bg-[#136C4A] text-white shadow-md border border-[#1E8A5E]'
+                      : 'text-emerald-100/80 hover:text-white hover:bg-[#0E5C3F]'
                   )
                 }
               >
                 <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 flex-shrink-0 opacity-80 group-hover:opacity-100" />
+                  <Icon className="w-4 h-4 flex-shrink-0 opacity-85 group-hover:opacity-100" />
                   <span>{item.name}</span>
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -85,19 +86,36 @@ export const Sidebar: React.FC = () => {
         </nav>
       </div>
 
-      {/* Bottom Ecosystem Jump */}
-      <div className="p-4 border-t border-slate-800 bg-slate-950/60">
-        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
-          SaaS Agro Portal Links
-        </div>
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between px-2.5 py-1.5 rounded bg-slate-900/80 text-xs text-slate-400 hover:text-slate-300 transition-colors cursor-default border border-slate-800">
-            <span>Admin Operational Portal</span>
-            <ExternalLink className="w-3 h-3 text-slate-500" />
+      {/* Bottom User/Ecosystem Bar matching screenshot */}
+      <div className="p-4 border-t border-[#0D5C3E] bg-[#083D2A]/90 space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-[#136C4A] border border-[#1E8A5E] text-white font-black flex items-center justify-center text-sm shadow-sm">
+              S
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white tracking-tight">Saf Shikan Admin</div>
+              <div className="text-[10px] text-emerald-300/90 font-semibold uppercase tracking-wider">
+                ADMIN ACCESS
+              </div>
+            </div>
           </div>
-          <div className="flex items-center justify-between px-2.5 py-1.5 rounded bg-slate-900/80 text-xs text-slate-400 hover:text-slate-300 transition-colors cursor-default border border-slate-800">
+          <button
+            title="SaaS Portal Navigation"
+            className="p-1.5 rounded-lg hover:bg-[#136C4A] text-emerald-200 hover:text-white transition-colors"
+          >
+            <LogOut className="w-4 h-4 rotate-180" />
+          </button>
+        </div>
+
+        <div className="pt-2 border-t border-[#0D5C3E]/60 space-y-1">
+          <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#0B4F36]/80 text-[11px] text-emerald-200/80 hover:text-white transition-colors cursor-default border border-[#0D5C3E]">
+            <span>Admin Operational Portal</span>
+            <ExternalLink className="w-3 h-3 text-emerald-300/60" />
+          </div>
+          <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#0B4F36]/80 text-[11px] text-emerald-200/80 hover:text-white transition-colors cursor-default border border-[#0D5C3E]">
             <span>Operator Flight / Attendance</span>
-            <ExternalLink className="w-3 h-3 text-slate-500" />
+            <ExternalLink className="w-3 h-3 text-emerald-300/60" />
           </div>
         </div>
       </div>

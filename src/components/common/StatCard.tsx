@@ -23,47 +23,55 @@ export const StatCard: React.FC<StatCardProps> = ({
   variant = 'default',
 }) => {
   const borderColors = {
-    default: 'border-slate-200/80 hover:border-slate-300',
-    positive: 'border-emerald-200/80 bg-emerald-50/20 hover:border-emerald-300',
-    warning: 'border-amber-200/80 bg-amber-50/20 hover:border-amber-300',
-    critical: 'border-rose-200/80 bg-rose-50/20 hover:border-rose-300',
+    default: 'border-[#E3ECE7] hover:border-[#C8DDD2]',
+    positive: 'border-emerald-200/80 bg-[#F0F7F4] hover:border-emerald-300',
+    warning: 'border-amber-200/80 bg-amber-50/30 hover:border-amber-300',
+    critical: 'border-rose-200/80 bg-rose-50/30 hover:border-rose-300',
   };
 
   const iconColors = {
-    default: 'bg-slate-100 text-slate-700',
+    default: 'bg-[#F0F7F4] text-[#0B4F36]',
     positive: 'bg-emerald-100 text-emerald-700',
     warning: 'bg-amber-100 text-amber-700',
     critical: 'bg-rose-100 text-rose-700',
   };
 
+  const dotColors = {
+    default: 'bg-[#0B4F36]',
+    positive: 'bg-emerald-500',
+    warning: 'bg-amber-500',
+    critical: 'bg-rose-500',
+  };
+
   return (
     <div
       className={clsx(
-        'bg-white rounded-xl p-5 border shadow-sm transition-all duration-200 flex flex-col justify-between',
+        'bg-white rounded-2xl p-6 border shadow-[0_2px_12px_-3px_rgba(11,79,54,0.06)] transition-all duration-200 flex flex-col justify-between hover:shadow-md select-none',
         borderColors[variant]
       )}
     >
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <div className="flex items-center justify-between mb-3.5">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A6B5D]">
           {title}
         </span>
         {icon && (
-          <div className={clsx('w-9 h-9 rounded-lg flex items-center justify-center', iconColors[variant])}>
+          <div className={clsx('w-9 h-9 rounded-xl flex items-center justify-center shadow-sm', iconColors[variant])}>
             {icon}
           </div>
         )}
       </div>
 
       <div>
-        <div className="text-2xl font-bold tracking-tight text-slate-900 mb-1">
+        <div className="text-3xl font-black tracking-tight text-[#0B3B24] mb-1.5">
           {value}
         </div>
         
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-2 text-xs font-semibold text-[#4A6B5D]">
+          <span className={clsx('w-2 h-2 rounded-full flex-shrink-0', dotColors[variant])} />
           {trend && (
             <span
               className={clsx(
-                'inline-flex items-center font-semibold px-1.5 py-0.5 rounded',
+                'inline-flex items-center font-bold px-1.5 py-0.5 rounded text-[11px]',
                 trend.isPositive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
               )}
             >
@@ -71,7 +79,7 @@ export const StatCard: React.FC<StatCardProps> = ({
               {trend.value}
             </span>
           )}
-          {subtitle && <span className="text-slate-400">{subtitle}</span>}
+          {subtitle && <span>{subtitle}</span>}
         </div>
       </div>
     </div>

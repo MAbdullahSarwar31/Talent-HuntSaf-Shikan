@@ -19,9 +19,9 @@ export const ScoreBadge: React.FC<ScoreBadgeProps> = ({
   const colors = getScoreBandColor(band);
 
   const sizeClasses = {
-    sm: 'px-2 py-0.5 text-xs gap-1',
-    md: 'px-2.5 py-1 text-xs gap-1.5 font-semibold',
-    lg: 'px-3 py-1.5 text-sm gap-2 font-bold',
+    sm: 'px-2.5 py-0.5 text-[11px] gap-1',
+    md: 'px-3 py-1 text-xs gap-1.5 font-bold',
+    lg: 'px-3.5 py-1.5 text-sm gap-2 font-black',
   };
 
   const dotSizes = {
@@ -33,14 +33,14 @@ export const ScoreBadge: React.FC<ScoreBadgeProps> = ({
   return (
     <span
       className={clsx(
-        'inline-flex items-center rounded-full border transition-colors select-none whitespace-nowrap',
+        'inline-flex items-center rounded-full border transition-all select-none whitespace-nowrap shadow-sm',
         colors.bg,
         colors.text,
         colors.border,
         sizeClasses[size]
       )}
     >
-      <span className={clsx('rounded-full', colors.dot, dotSizes[size])} />
+      <span className={clsx('rounded-full flex-shrink-0', colors.dot, dotSizes[size])} />
       <span className="uppercase tracking-wider">
         {band} {showScore && `(${score})`}
       </span>
