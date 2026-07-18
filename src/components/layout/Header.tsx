@@ -1,6 +1,6 @@
 import React from 'react';
 import { isRealSupabase } from '../../lib/supabase';
-import { Database, Bell } from 'lucide-react';
+import { Database } from 'lucide-react';
 import clsx from 'clsx';
 
 export const Header: React.FC = () => {
@@ -16,24 +16,15 @@ export const Header: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        {/* Notification bell and User Profile Badge matching screenshot */}
-        <div className="flex items-center gap-4 pl-4 border-l border-[#E3ECE7]">
-          <div className="relative p-2 rounded-full bg-[#F0F7F4] border border-[#D8E8E0] text-[#0B4F36] cursor-pointer hover:bg-[#E3ECE7] transition-colors">
-            <Bell className="w-4 h-4" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white font-black text-[9px] flex items-center justify-center border-2 border-white shadow-sm">
-              1
-            </span>
+        {/* User Profile Badge */}
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-full bg-[#136C4A] text-white font-black flex items-center justify-center text-xs shadow-sm">
+            S
           </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#136C4A] text-white font-black flex items-center justify-center text-xs shadow-sm">
-              S
-            </div>
-            <div className="hidden sm:block">
-              <div className="text-xs font-bold text-[#0B4F36] leading-tight">Saf Shikan Admin</div>
-              <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                ADMIN PORTAL
-              </div>
+          <div className="hidden sm:block">
+            <div className="text-xs font-bold text-[#0B4F36] leading-tight">Saf Shikan Admin</div>
+            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+              ADMIN PORTAL
             </div>
           </div>
         </div>
