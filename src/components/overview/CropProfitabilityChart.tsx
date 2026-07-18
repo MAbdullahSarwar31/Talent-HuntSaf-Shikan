@@ -84,12 +84,25 @@ export const CropProfitabilityChart: React.FC<CropProfitabilityChartProps> = ({ 
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#0f172a',
-                borderColor: '#334155',
-                borderRadius: '8px',
-                color: '#f8fafc',
+                backgroundColor: '#ffffff',
+                border: '1px solid #C8DDD2',
+                borderRadius: '10px',
+                boxShadow: '0 4px 20px rgba(11,79,54,0.12)',
+                padding: '10px 14px'
+              }}
+              labelStyle={{
+                color: '#0B3B24',
+                fontWeight: 'black',
+                fontSize: '13px',
+                marginBottom: '4px',
+                borderBottom: '1px solid #E3ECE7',
+                paddingBottom: '4px'
+              }}
+              itemStyle={{
+                color: '#136C4A',
+                fontWeight: 'bold',
                 fontSize: '12px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                paddingTop: '2px'
               }}
               formatter={(value: any, name: any) => [
                 name === 'MarginPct' ? `${value}%` : formatPKR(Number(value)),
