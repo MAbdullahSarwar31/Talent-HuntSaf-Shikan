@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   Sliders,
   FileText,
-  ShieldCheck,
   ExternalLink,
   ChevronRight,
   LogOut
@@ -45,17 +44,8 @@ export const Sidebar: React.FC = () => {
           </div>
         </div>
 
-        {/* Executive Tier Notice */}
-        <div className="px-4 py-3 mx-4 my-4 rounded-xl bg-[#083D2A]/60 border border-[#136C4A] text-[11px] text-emerald-200/90 shadow-inner">
-          <div className="flex items-center gap-1.5 text-white font-bold mb-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-300 flex-shrink-0" />
-            Executive BI Layer
-          </div>
-          Sits directly above Operational & Operator portals to compute true margins.
-        </div>
-
         {/* Navigation Links */}
-        <nav className="px-3 space-y-1.5">
+        <nav className="px-3 py-4 space-y-1.5">
           <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-emerald-300/70">
             BI Analytics & Insights
           </div>

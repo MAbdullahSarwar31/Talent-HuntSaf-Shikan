@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import type { AppRole } from '../../types';
+import React from 'react';
 import { isRealSupabase } from '../../lib/supabase';
-import { Database, UserCheck, Bell } from 'lucide-react';
+import { Database, Bell } from 'lucide-react';
 import clsx from 'clsx';
 
 export const Header: React.FC = () => {
-  const [currentRole, setCurrentRole] = useState<AppRole>('admin');
-
   return (
     <header className="h-20 bg-white border-b border-[#E3ECE7] px-8 flex items-center justify-between sticky top-0 z-30 shadow-sm select-none">
       <div className="flex items-center gap-4">
@@ -19,30 +16,6 @@ export const Header: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        {/* Role Access Selector for Demo & Verification */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-[#4A6B5D] uppercase tracking-wider flex items-center gap-1.5">
-            <UserCheck className="w-3.5 h-3.5 text-[#0B4F36]" />
-            Simulated Role:
-          </span>
-          <div className="inline-flex rounded-xl bg-[#F0F7F4] p-1 border border-[#D8E8E0]">
-            {(['admin', 'finance', 'operations'] as AppRole[]).map((role) => (
-              <button
-                key={role}
-                onClick={() => setCurrentRole(role)}
-                className={clsx(
-                  'px-3 py-1 rounded-lg text-xs font-bold uppercase transition-all',
-                  currentRole === role
-                    ? 'bg-[#0B4F36] text-white shadow-sm'
-                    : 'text-[#4A6B5D] hover:text-[#0B4F36]'
-                )}
-              >
-                {role}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Notification bell and User Profile Badge matching screenshot */}
         <div className="flex items-center gap-4 pl-4 border-l border-[#E3ECE7]">
           <div className="relative p-2 rounded-full bg-[#F0F7F4] border border-[#D8E8E0] text-[#0B4F36] cursor-pointer hover:bg-[#E3ECE7] transition-colors">
@@ -59,7 +32,7 @@ export const Header: React.FC = () => {
             <div className="hidden sm:block">
               <div className="text-xs font-bold text-[#0B4F36] leading-tight">Saf Shikan Admin</div>
               <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                {currentRole.toUpperCase()} PORTAL
+                ADMIN PORTAL
               </div>
             </div>
           </div>
