@@ -117,7 +117,7 @@ export const FleetUtilizationPage: React.FC = () => {
 
       {/* Hardware Utilization Directory Table */}
       <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-sm">
-        <div className="p-6 border-b border-slate-200/80 flex items-center justify-between">
+        <div className="p-4 sm:p-6 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h3 className="text-base font-bold text-slate-900 tracking-tight">
               Hardware Fleet Duty & Depreciation Matrix
@@ -126,7 +126,7 @@ export const FleetUtilizationPage: React.FC = () => {
               Deterministic scoring evaluates operational flight hours against downtime and maintenance burden
             </p>
           </div>
-          <span className="text-xs font-bold bg-slate-100 px-2.5 py-1 rounded text-slate-600">
+          <span className="text-xs font-bold bg-slate-100 px-2.5 py-1 rounded text-slate-600 self-start sm:self-auto">
             Real-Time Telemetry
           </span>
         </div>
@@ -134,7 +134,7 @@ export const FleetUtilizationPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
+              <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold whitespace-nowrap">
                 <th className="py-4 px-6">Hardware Model / Serial</th>
                 <th className="py-4 px-4 text-center">Status</th>
                 <th className="py-4 px-4 text-right">Airborne Flight Hrs</th>
@@ -149,14 +149,14 @@ export const FleetUtilizationPage: React.FC = () => {
                 const scoring = computeFleetUtilizationScore(d);
                 return (
                   <tr key={d.id} className="hover:bg-slate-50/60 transition-colors">
-                    <td className="py-4 px-6">
+                    <td className="py-4 px-6 whitespace-nowrap">
                       <div className="font-bold text-slate-900 flex items-center gap-2">
-                        <Plane className="w-4 h-4 text-slate-400" />
+                        <Plane className="w-4 h-4 text-slate-400 flex-shrink-0" />
                         {d.serial_number}
                       </div>
                       <div className="text-[11px] text-slate-400 pl-6">{d.model}</div>
                     </td>
-                    <td className="py-4 px-4 text-center">
+                    <td className="py-4 px-4 text-center whitespace-nowrap">
                       <span
                         className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                           d.status === 'active'
@@ -167,24 +167,24 @@ export const FleetUtilizationPage: React.FC = () => {
                         {d.status}
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-right font-bold text-slate-900">
+                    <td className="py-4 px-4 text-right font-bold text-slate-900 whitespace-nowrap">
                       {d.total_flight_hours.toFixed(1)} hrs
                     </td>
-                    <td className="py-4 px-4 text-right font-semibold text-slate-600">
+                    <td className="py-4 px-4 text-right font-semibold text-slate-600 whitespace-nowrap">
                       {d.maintenance_burden_hours.toFixed(1)} hrs
                     </td>
-                    <td className="py-4 px-4 text-right font-semibold text-slate-700">
+                    <td className="py-4 px-4 text-right font-semibold text-slate-700 whitespace-nowrap">
                       {formatPKR(d.hourly_depreciation_cost_pkr)} / hr
                     </td>
-                    <td className="py-4 px-6 text-center">
+                    <td className="py-4 px-6 text-center whitespace-nowrap">
                       <ScoreBadge score={scoring.score} band={scoring.band} size="sm" />
                     </td>
-                    <td className="py-4 px-6">
-                      <div className="text-[11px] font-medium text-slate-700 max-w-sm">
+                    <td className="py-4 px-6 whitespace-nowrap">
+                      <div className="text-[11px] font-medium text-slate-700 max-w-sm whitespace-normal">
                         {scoring.reasons[0] || 'Nominal operational status.'}
                       </div>
                       {scoring.recommendations[0] && (
-                        <div className="text-[10px] text-emerald-700 mt-1 font-semibold flex items-center gap-1">
+                        <div className="text-[10px] text-emerald-700 mt-1 font-semibold flex items-center gap-1 whitespace-normal">
                           <CheckCircle2 className="w-3 h-3 text-emerald-600 flex-shrink-0" />
                           {scoring.recommendations[0]}
                         </div>
@@ -200,7 +200,7 @@ export const FleetUtilizationPage: React.FC = () => {
 
       {/* Maintenance & Repair Ledger Table */}
       <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-sm">
-        <div className="p-6 border-b border-slate-200/80 flex items-center justify-between">
+        <div className="p-4 sm:p-6 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
               <Wrench className="w-4 h-4 text-slate-500" /> Recent Maintenance & Overhaul Ledger
@@ -209,7 +209,7 @@ export const FleetUtilizationPage: React.FC = () => {
               Itemizing repair costs and downtime hours across hardware maintenance cycles
             </p>
           </div>
-          <span className="text-xs font-bold bg-slate-100 px-2.5 py-1 rounded text-slate-600">
+          <span className="text-xs font-bold bg-slate-100 px-2.5 py-1 rounded text-slate-600 self-start sm:self-auto">
             {logs.length} Maintenance Events
           </span>
         </div>
@@ -217,7 +217,7 @@ export const FleetUtilizationPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
+              <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold whitespace-nowrap">
                 <th className="py-3.5 px-6">Date & Hardware Unit</th>
                 <th className="py-3.5 px-6">Component / Overhaul Description</th>
                 <th className="py-3.5 px-4 text-right">Downtime (Hours)</th>
@@ -227,19 +227,19 @@ export const FleetUtilizationPage: React.FC = () => {
             <tbody className="divide-y divide-slate-100 text-xs">
               {logs.map((log) => (
                 <tr key={log.id} className="hover:bg-slate-50/60 transition-colors">
-                  <td className="py-3.5 px-6">
+                  <td className="py-3.5 px-6 whitespace-nowrap">
                     <div className="font-bold text-slate-900">{formatDate(log.date)}</div>
                     <div className="text-[11px] text-slate-400">
                       {log.drone?.serial_number || 'Agras Unit'} ({log.drone?.model || 'Drone'})
                     </div>
                   </td>
-                  <td className="py-3.5 px-6 font-medium text-slate-700 max-w-md">
+                  <td className="py-3.5 px-6 font-medium text-slate-700 max-w-md whitespace-nowrap">
                     {log.description}
                   </td>
-                  <td className="py-3.5 px-4 text-right font-bold text-amber-700">
+                  <td className="py-3.5 px-4 text-right font-bold text-amber-700 whitespace-nowrap">
                     {log.hours_down.toFixed(1)} hrs down
                   </td>
-                  <td className="py-3.5 px-6 text-right font-black text-slate-900">
+                  <td className="py-3.5 px-6 text-right font-black text-slate-900 whitespace-nowrap">
                     {formatPKR(log.cost_pkr, true)}
                   </td>
                 </tr>

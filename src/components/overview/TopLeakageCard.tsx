@@ -55,11 +55,11 @@ export const TopLeakageCard: React.FC<TopLeakageCardProps> = ({ missions }) => {
   ];
 
   return (
-    <div className="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+    <div className="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center text-rose-600">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center text-rose-600 flex-shrink-0">
               <AlertTriangle className="w-4 h-4" />
             </div>
             <div>
@@ -71,7 +71,7 @@ export const TopLeakageCard: React.FC<TopLeakageCardProps> = ({ missions }) => {
               </p>
             </div>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right pt-2 sm:pt-0 border-t sm:border-0 border-slate-100">
             <div className="text-lg font-black text-rose-600">{formatPKR(totalLeakage, true)}</div>
             <div className="text-[11px] font-semibold text-slate-400">{leakageRatio.toFixed(1)}% of Revenue</div>
           </div>

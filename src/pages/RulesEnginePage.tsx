@@ -129,7 +129,7 @@ export const RulesEnginePage: React.FC = () => {
       )}
 
       {/* Top Simulation Impact Strip */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-xl p-6 shadow-md text-white grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+      <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-xl p-4 sm:p-6 shadow-md text-white grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
         <div className="space-y-1">
           <div className="text-xs uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5">
             <Play className="w-3.5 h-3.5 text-emerald-400" /> Historical Portfolio Average
@@ -138,7 +138,7 @@ export const RulesEnginePage: React.FC = () => {
           <div className="text-xs text-slate-400">Current deterministic baseline across {missions.length} missions</div>
         </div>
 
-        <div className="space-y-1 md:border-l md:border-slate-800 md:pl-6">
+        <div className="space-y-1 sm:border-l sm:border-slate-800 sm:pl-6 border-t sm:border-t-0 pt-4 sm:pt-0 border-slate-800">
           <div className="text-xs uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5">
             <Sliders className="w-3.5 h-3.5 text-blue-400" /> Simulated Portfolio Score
           </div>
@@ -146,7 +146,7 @@ export const RulesEnginePage: React.FC = () => {
           <div className="text-xs text-slate-400">Projected average based on adjusted weights & thresholds</div>
         </div>
 
-        <div className="space-y-1 md:border-l md:border-slate-800 md:pl-6">
+        <div className="space-y-1 sm:border-l sm:border-slate-800 sm:pl-6 border-t sm:border-t-0 pt-4 sm:pt-0 border-slate-800">
           <div className="text-xs uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5">
             <Layers className="w-3.5 h-3.5 text-purple-400" /> Net Delta Shift
           </div>
@@ -160,14 +160,14 @@ export const RulesEnginePage: React.FC = () => {
       {/* Rules Configuration Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {rules.map((rule, idx) => (
-          <div key={rule.id} className="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm space-y-5 flex flex-col justify-between">
+          <div key={rule.id} className="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 shadow-sm space-y-5 flex flex-col justify-between">
             <div className="space-y-3">
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-3">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 tracking-tight">{rule.name}</h3>
                   <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{rule.description}</p>
                 </div>
-                <span className="text-xs font-black bg-slate-100 text-slate-800 px-2.5 py-1 rounded border border-slate-200/80 flex-shrink-0">
+                <span className="text-xs font-black bg-slate-100 text-slate-800 px-2.5 py-1 rounded border border-slate-200/80 self-start sm:self-auto flex-shrink-0">
                   Weight: {rule.weight}%
                 </span>
               </div>
@@ -185,12 +185,12 @@ export const RulesEnginePage: React.FC = () => {
                   step={5}
                   value={rule.weight}
                   onChange={(e) => handleWeightChange(idx, Number(e.target.value))}
-                  className="w-full accent-emerald-600 cursor-pointer h-2 bg-slate-100 rounded-lg"
+                  className="w-full accent-emerald-600 cursor-pointer h-2 bg-slate-100 rounded-lg min-h-[32px]"
                 />
               </div>
 
               {/* Thresholds Configuration Grid */}
-              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-slate-100">
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
                     Good Threshold ({rule.name.includes('Net') ? '>= %' : '<= %'})
@@ -199,7 +199,7 @@ export const RulesEnginePage: React.FC = () => {
                     type="number"
                     value={rule.threshold_good}
                     onChange={(e) => handleThresholdChange(idx, 'threshold_good', Number(e.target.value))}
-                    className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -210,7 +210,7 @@ export const RulesEnginePage: React.FC = () => {
                     type="number"
                     value={rule.threshold_poor}
                     onChange={(e) => handleThresholdChange(idx, 'threshold_poor', Number(e.target.value))}
-                    className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
                   />
                 </div>
               </div>
@@ -225,22 +225,22 @@ export const RulesEnginePage: React.FC = () => {
       </div>
 
       {/* Action Strip */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 sm:p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm">
         <div className="flex items-center gap-2.5 text-xs text-slate-600 font-medium">
           <AlertCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
           <span>Adjustments in this sandbox instantly recalculate live simulation projections without altering permanent Supabase rows until saved.</span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
           <button
             onClick={handleReset}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors w-full sm:w-auto min-h-[44px]"
           >
             <RefreshCw className="w-3.5 h-3.5" /> Reset Defaults
           </button>
           <button
             onClick={handleSave}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-sm transition-all"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-sm transition-all w-full sm:w-auto min-h-[44px]"
           >
             <CheckCircle2 className="w-4 h-4" /> Save Simulation Ledger
           </button>

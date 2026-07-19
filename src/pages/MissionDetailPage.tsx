@@ -211,11 +211,11 @@ export const MissionDetailPage: React.FC = () => {
       </div>
 
       {/* AI Executive Insight Panel (Prominent Box) */}
-      <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-xl p-6 shadow-md text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-xl p-5 sm:p-6 shadow-md text-white relative overflow-hidden">
         <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+            <div className="w-9 h-9 rounded-lg bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 flex-shrink-0">
               <Sparkles className="w-5 h-5 animate-pulse" />
             </div>
             <div>
@@ -231,7 +231,7 @@ export const MissionDetailPage: React.FC = () => {
           <button
             onClick={handleGenerateInsight}
             disabled={insightLoading}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs shadow-sm transition-all flex-shrink-0"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs shadow-sm transition-all flex-shrink-0 min-h-[44px] w-full sm:w-auto"
           >
             {insightLoading ? (
               <>
@@ -264,7 +264,7 @@ export const MissionDetailPage: React.FC = () => {
         {/* Itemized Cost Ledger Table */}
         <div className="lg:col-span-2 bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
           <div>
-            <div className="p-6 border-b border-slate-200/80 flex items-center justify-between">
+            <div className="p-4 sm:p-6 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
                   <FileText className="w-4 h-4 text-slate-500" /> Itemized Financial Cost Ledger
@@ -273,7 +273,7 @@ export const MissionDetailPage: React.FC = () => {
                   Exact expenditure breakdown deducted from gross contract revenue
                 </p>
               </div>
-              <span className="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded">
+              <span className="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded self-start sm:self-auto">
                 {(mission.costs || []).length} Cost Entries
               </span>
             </div>
@@ -281,7 +281,7 @@ export const MissionDetailPage: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
+                  <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold whitespace-nowrap">
                     <th className="py-3.5 px-6">Cost Category</th>
                     <th className="py-3.5 px-4">Notes / Operational Context</th>
                     <th className="py-3.5 px-4 text-right">Amount (PKR)</th>
@@ -294,7 +294,7 @@ export const MissionDetailPage: React.FC = () => {
                     const pct = totalCost > 0 ? (Number(c.amount_pkr || 0) / totalCost) * 100 : 0;
                     return (
                       <tr key={c.id} className="hover:bg-slate-50/60 transition-colors">
-                        <td className="py-3.5 px-6">
+                        <td className="py-3.5 px-6 whitespace-nowrap">
                           <span
                             className={`inline-block px-2.5 py-1 rounded-md text-xs font-bold border ${badge.bg}`}
                           >
@@ -302,10 +302,10 @@ export const MissionDetailPage: React.FC = () => {
                           </span>
                         </td>
                         <td className="py-3.5 px-4 text-slate-600 max-w-xs">{c.notes || 'Routine allocation'}</td>
-                        <td className="py-3.5 px-4 text-right font-bold text-slate-900">
+                        <td className="py-3.5 px-4 text-right font-bold text-slate-900 whitespace-nowrap">
                           {formatPKR(Number(c.amount_pkr || 0))}
                         </td>
-                        <td className="py-3.5 px-6 text-right font-semibold text-slate-500">
+                        <td className="py-3.5 px-6 text-right font-semibold text-slate-500 whitespace-nowrap">
                           {pct.toFixed(1)}%
                         </td>
                       </tr>

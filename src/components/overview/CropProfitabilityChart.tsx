@@ -48,8 +48,8 @@ export const CropProfitabilityChart: React.FC<CropProfitabilityChartProps> = ({ 
   });
 
   return (
-    <div className="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-6">
         <div>
           <h3 className="text-base font-bold text-slate-900 tracking-tight">
             Average Profitability by Crop Sector
@@ -58,14 +58,14 @@ export const CropProfitabilityChart: React.FC<CropProfitabilityChartProps> = ({ 
             Cotton in Multan leads profit margins; Sugarcane & Rice exhibit high travel leakage
           </p>
         </div>
-        <div className="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 text-slate-600">
+        <div className="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 text-slate-600 self-start sm:self-auto flex-shrink-0">
           Aggregated by Crop
         </div>
       </div>
 
-      <div className="h-72 w-full">
+      <div className="h-64 sm:h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 20 }}>
+          <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
             <XAxis
               dataKey="name"

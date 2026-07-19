@@ -119,10 +119,10 @@ export const ReportsPage: React.FC = () => {
       />
 
       {/* Report Generator Configuration Box */}
-      <div className="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm space-y-6">
+      <div className="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 shadow-sm space-y-6">
         <div>
           <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <Filter className="w-4 h-4 text-slate-500" /> Configure Report Parameters & Scope
+            <Filter className="w-4 h-4 text-slate-500 flex-shrink-0" /> Configure Report Parameters & Scope
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">
             Select report template, province filter, and crop target before generating board package
@@ -141,7 +141,7 @@ export const ReportsPage: React.FC = () => {
                 setReportType(e.target.value as any);
                 setReportReady(false);
               }}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
             >
               <option value="executive">Executive Profitability Summary (Board Package)</option>
               <option value="leakage">Transport & Retry Margin Leakage Audit</option>
@@ -160,7 +160,7 @@ export const ReportsPage: React.FC = () => {
                 setSelectedProvince(e.target.value);
                 setReportReady(false);
               }}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
             >
               <option value="All">All Provinces (National Coverage)</option>
               <option value="Punjab">Punjab Sector Only</option>
@@ -179,7 +179,7 @@ export const ReportsPage: React.FC = () => {
                 setSelectedCrop(e.target.value);
                 setReportReady(false);
               }}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 min-h-[44px]"
             >
               <option value="All">All Crops (Cotton, Wheat, Rice, Sugarcane)</option>
               <option value="Cotton">Cotton Only</option>
@@ -190,16 +190,16 @@ export const ReportsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+        <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="text-xs text-slate-500 font-medium flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-slate-400" />
+            <Calendar className="w-4 h-4 text-slate-400 flex-shrink-0" />
             <span>Targeting {filteredSubset.length} historical mission records matching filter criteria.</span>
           </div>
 
           <button
             onClick={handleGenerateReport}
             disabled={generating || filteredSubset.length === 0}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-bold shadow-sm transition-all"
+            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-bold shadow-sm transition-all min-h-[44px] w-full sm:w-auto"
           >
             {generating ? (
               <>
@@ -217,42 +217,42 @@ export const ReportsPage: React.FC = () => {
       {/* Generated Report Preview & Download Card */}
       {reportReady && (
         <div className="bg-white border-2 border-emerald-500/60 rounded-xl overflow-hidden shadow-md animate-fadeIn">
-          <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 p-6 text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 p-4 sm:p-6 text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold">
+              <div className="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold flex-shrink-0">
                 <FileCheck className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-lg font-black tracking-tight text-white flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2">
                   {reportType === 'executive'
                     ? 'SAF SHIKAN Executive Profitability Briefing'
                     : reportType === 'leakage'
                     ? 'SAF SHIKAN Transport & Retry Leakage Audit'
                     : 'SAF SHIKAN Operator & Fleet Efficiency Ledger'}
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-400 mt-0.5">
                   Compiled on {generatedDate} | Scope: {selectedProvince} Province, {selectedCrop} Sector ({filteredSubset.length} records)
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
               <button
                 onClick={() => alert('Simulated PDF Download initiated for board presentation.')}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-sm transition-all"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-sm transition-all min-h-[44px] w-full sm:w-auto"
               >
                 <Download className="w-4 h-4" /> Download PDF Package
               </button>
               <button
                 onClick={() => alert('Simulated CSV Ledger export initiated.')}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-all"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-all min-h-[44px] w-full sm:w-auto"
               >
                 <FileText className="w-4 h-4" /> Export CSV Ledger
               </button>
             </div>
           </div>
 
-          <div className="p-6 space-y-6">
+          <div className="p-4 sm:p-6 space-y-6">
             {/* Executive Highlights Summary Strip */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="p-4 bg-slate-50 rounded-lg border border-slate-200/80">
@@ -279,14 +279,14 @@ export const ReportsPage: React.FC = () => {
 
             {/* Tabular Executive Preview */}
             <div className="border border-slate-200/80 rounded-xl overflow-hidden">
-              <div className="bg-slate-50 px-5 py-3 border-b border-slate-200/80 text-xs font-bold text-slate-700 flex items-center justify-between">
+              <div className="bg-slate-50 px-5 py-3 border-b border-slate-200/80 text-xs font-bold text-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                 <span>Executive Preview Table (Top 5 Contracts in Package)</span>
                 <span className="text-[11px] text-slate-400">Page 1 of Executive Report</span>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
-                    <tr className="bg-slate-50/50 border-b border-slate-200/80 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
+                    <tr className="bg-slate-50/50 border-b border-slate-200/80 text-[11px] uppercase tracking-wider text-slate-500 font-bold whitespace-nowrap">
                       <th className="py-3 px-5">Mission Code</th>
                       <th className="py-3 px-4">Location</th>
                       <th className="py-3 px-4">Crop</th>
@@ -303,7 +303,7 @@ export const ReportsPage: React.FC = () => {
                       const p = r - c;
                       const mPct = r > 0 ? (p / r) * 100 : 0;
                       return (
-                        <tr key={m.id} className="hover:bg-slate-50/60">
+                        <tr key={m.id} className="hover:bg-slate-50/60 whitespace-nowrap">
                           <td className="py-3 px-5 font-bold text-slate-900">{m.code}</td>
                           <td className="py-3 px-4 text-slate-700">{m.location}, {m.province}</td>
                           <td className="py-3 px-4 font-medium text-emerald-800">{m.crop_type}</td>

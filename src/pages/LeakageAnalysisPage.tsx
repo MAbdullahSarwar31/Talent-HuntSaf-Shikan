@@ -169,10 +169,10 @@ export const LeakageAnalysisPage: React.FC = () => {
       {/* Charts Grid: Sector Travel vs Hardware Retries */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Sector Travel Ratio Chart */}
-        <div className="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm space-y-4">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 shadow-sm space-y-4">
           <div>
             <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-rose-600" /> Travel Overhead Ratio by Sector (% of Revenue)
+              <MapPin className="w-4 h-4 text-rose-600 flex-shrink-0" /> Travel Overhead Ratio by Sector (% of Revenue)
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               Remote sectors (Sukkur, Hyderabad) experience heavy transit friction compared to local bases
@@ -228,10 +228,10 @@ export const LeakageAnalysisPage: React.FC = () => {
         </div>
 
         {/* Hardware Retry Cost Chart */}
-        <div className="bg-white border border-slate-200/80 rounded-xl p-6 shadow-sm space-y-4">
+        <div className="bg-white border border-slate-200/80 rounded-xl p-4 sm:p-6 shadow-sm space-y-4">
           <div>
             <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
-              <Plane className="w-4 h-4 text-amber-600" /> Spraying Retry Cost by Hardware (PKR)
+              <Plane className="w-4 h-4 text-amber-600 flex-shrink-0" /> Spraying Retry Cost by Hardware (PKR)
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               Falcon-X heavy units suffer from nozzle drift retries during deep canopy applications
@@ -240,7 +240,7 @@ export const LeakageAnalysisPage: React.FC = () => {
 
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={hardwareRetry} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
+              <BarChart data={hardwareRetry} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                 <XAxis dataKey="model" stroke="#64748b" fontSize={11} tickLine={false} />
                 <YAxis
@@ -288,9 +288,9 @@ export const LeakageAnalysisPage: React.FC = () => {
       </div>
 
       {/* Leadership Action & Remediation Plan Box */}
-      <div className="bg-gradient-to-r from-emerald-900 via-slate-900 to-slate-950 border border-emerald-800/80 rounded-xl p-6 shadow-md text-white space-y-4">
+      <div className="bg-gradient-to-r from-emerald-900 via-slate-900 to-slate-950 border border-emerald-800/80 rounded-xl p-4 sm:p-6 shadow-md text-white space-y-4">
         <div className="flex items-center gap-3 border-b border-emerald-800/60 pb-3">
-          <div className="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold">
+          <div className="w-9 h-9 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold flex-shrink-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>

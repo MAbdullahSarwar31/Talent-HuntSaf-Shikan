@@ -46,27 +46,27 @@ export const StatCard: React.FC<StatCardProps> = ({
   return (
     <div
       className={clsx(
-        'bg-white rounded-2xl p-6 border shadow-[0_2px_12px_-3px_rgba(11,79,54,0.06)] transition-all duration-200 flex flex-col justify-between hover:shadow-md select-none',
+        'bg-white rounded-2xl p-4 sm:p-6 border shadow-[0_2px_12px_-3px_rgba(11,79,54,0.06)] transition-all duration-200 flex flex-col justify-between hover:shadow-md select-none',
         borderColors[variant]
       )}
     >
-      <div className="flex items-center justify-between mb-3.5">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A6B5D]">
+      <div className="flex items-center justify-between mb-3 gap-2">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A6B5D] truncate">
           {title}
         </span>
         {icon && (
-          <div className={clsx('w-9 h-9 rounded-xl flex items-center justify-center shadow-sm', iconColors[variant])}>
+          <div className={clsx('w-9 h-9 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0', iconColors[variant])}>
             {icon}
           </div>
         )}
       </div>
 
       <div>
-        <div className="text-3xl font-black tracking-tight text-[#0B3B24] mb-1.5">
+        <div className="text-2xl sm:text-3xl font-black tracking-tight text-[#0B3B24] mb-1.5 break-words">
           {value}
         </div>
         
-        <div className="flex items-center gap-2 text-xs font-semibold text-[#4A6B5D]">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs font-semibold text-[#4A6B5D]">
           <span className={clsx('w-2 h-2 rounded-full flex-shrink-0', dotColors[variant])} />
           {trend && (
             <span
@@ -75,11 +75,11 @@ export const StatCard: React.FC<StatCardProps> = ({
                 trend.isPositive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
               )}
             >
-              {trend.isPositive ? <ArrowUpRight className="w-3 h-3 mr-0.5" /> : <ArrowDownRight className="w-3 h-3 mr-0.5" />}
+              {trend.isPositive ? <ArrowUpRight className="w-3 h-3 mr-0.5 flex-shrink-0" /> : <ArrowDownRight className="w-3 h-3 mr-0.5 flex-shrink-0" />}
               {trend.value}
             </span>
           )}
-          {subtitle && <span>{subtitle}</span>}
+          {subtitle && <span className="truncate">{subtitle}</span>}
         </div>
       </div>
     </div>

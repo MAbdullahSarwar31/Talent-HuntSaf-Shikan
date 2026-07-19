@@ -115,7 +115,7 @@ export const OperatorEfficiencyPage: React.FC = () => {
 
       {/* Operator Efficiency Ranking Table */}
       <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-sm">
-        <div className="p-6 border-b border-slate-200/80 flex items-center justify-between">
+        <div className="p-4 sm:p-6 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h3 className="text-base font-bold text-slate-900 tracking-tight">
               Operator Performance Ranking & Retry Matrix
@@ -124,7 +124,7 @@ export const OperatorEfficiencyPage: React.FC = () => {
               Deterministic scoring penalizes high retry rates and field delay overhead while rewarding mission tenure
             </p>
           </div>
-          <span className="text-xs font-bold bg-slate-100 px-2.5 py-1 rounded text-slate-600">
+          <span className="text-xs font-bold bg-slate-100 px-2.5 py-1 rounded text-slate-600 self-start sm:self-auto">
             Ranked by BI Score
           </span>
         </div>
@@ -132,7 +132,7 @@ export const OperatorEfficiencyPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold">
+              <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold whitespace-nowrap">
                 <th className="py-4 px-6">Operator Name / CNIC</th>
                 <th className="py-4 px-4">Home Station & Sector</th>
                 <th className="py-4 px-4 text-center">Experience</th>
@@ -155,29 +155,29 @@ export const OperatorEfficiencyPage: React.FC = () => {
                   const scoring = computeOperatorEfficiencyScore(op);
                   return (
                     <tr key={op.id} className="hover:bg-slate-50/60 transition-colors">
-                      <td className="py-4 px-6">
+                      <td className="py-4 px-6 whitespace-nowrap">
                         <div className="font-bold text-slate-900 flex items-center gap-2">
-                          <UserCheck className="w-4 h-4 text-slate-400" />
+                          <UserCheck className="w-4 h-4 text-slate-400 flex-shrink-0" />
                           {op.full_name}
                         </div>
                         <div className="text-[10px] text-slate-400 pl-6">CNIC: {op.cnic}</div>
                       </td>
-                      <td className="py-4 px-4">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <div className="font-semibold text-slate-800 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-slate-400" />
+                          <MapPin className="w-3 h-3 text-slate-400 flex-shrink-0" />
                           {op.location}, {op.province}
                         </div>
                       </td>
-                      <td className="py-4 px-4 text-center font-bold text-slate-700">
+                      <td className="py-4 px-4 text-center font-bold text-slate-700 whitespace-nowrap">
                         {op.experience_years} Years
                       </td>
-                      <td className="py-4 px-4 text-right font-semibold text-slate-700">
+                      <td className="py-4 px-4 text-right font-semibold text-slate-700 whitespace-nowrap">
                         {formatPKR(op.hourly_rate_pkr)} / hr
                       </td>
-                      <td className="py-4 px-4 text-right font-black text-slate-900">
+                      <td className="py-4 px-4 text-right font-black text-slate-900 whitespace-nowrap">
                         {op.total_missions}
                       </td>
-                      <td className="py-4 px-4 text-center">
+                      <td className="py-4 px-4 text-center whitespace-nowrap">
                         <span
                           className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold border ${
                             op.retry_rate_percentage <= 5
@@ -190,15 +190,15 @@ export const OperatorEfficiencyPage: React.FC = () => {
                           {op.retry_rate_percentage.toFixed(1)}%
                         </span>
                       </td>
-                      <td className="py-4 px-6 text-center">
+                      <td className="py-4 px-6 text-center whitespace-nowrap">
                         <ScoreBadge score={scoring.score} band={scoring.band} size="sm" />
                       </td>
-                      <td className="py-4 px-6">
-                        <div className="text-[11px] font-medium text-slate-700 max-w-sm">
+                      <td className="py-4 px-6 whitespace-nowrap">
+                        <div className="text-[11px] font-medium text-slate-700 max-w-sm whitespace-normal">
                           {scoring.reasons[0] || 'Nominal field execution.'}
                         </div>
                         {scoring.recommendations[0] && (
-                          <div className="text-[10px] text-emerald-700 mt-1 font-semibold flex items-center gap-1">
+                          <div className="text-[10px] text-emerald-700 mt-1 font-semibold flex items-center gap-1 whitespace-normal">
                             <CheckCircle2 className="w-3 h-3 text-emerald-600 flex-shrink-0" />
                             {scoring.recommendations[0]}
                           </div>
