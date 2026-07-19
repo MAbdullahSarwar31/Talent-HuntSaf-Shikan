@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   Sliders,
   FileText,
-  ExternalLink,
   ChevronRight,
   LogOut,
   X
@@ -54,9 +53,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
           {/* Brand Header matching SAF SHIKAN Admin Portal */}
           <div className="h-20 flex items-center justify-between px-6 border-b border-[#0D5C3E] gap-3 bg-[#083D2A]/80">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#0B4F36] font-black text-xl shadow-md flex-shrink-0">
-                S
-              </div>
+              <img
+                src="/logo.png"
+                alt="SAF SHIKAN Logo"
+                className="w-10 h-10 rounded-xl bg-white p-0.5 object-contain shadow-md flex-shrink-0"
+              />
               <div>
                 <div className="font-black text-white text-sm tracking-wider flex items-center gap-1.5">
                   SAF SHIKAN
@@ -112,12 +113,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
         </div>
 
         {/* Bottom User/Ecosystem Bar matching screenshot */}
-        <div className="p-4 border-t border-[#0D5C3E] bg-[#083D2A]/90 space-y-3">
+        <div className="p-4 border-t border-[#0D5C3E] bg-[#083D2A]/90">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#136C4A] border border-[#1E8A5E] text-white font-black flex items-center justify-center text-sm shadow-sm flex-shrink-0">
-                S
-              </div>
+              <img
+                src="/logo.png"
+                alt="SAF SHIKAN"
+                className="w-9 h-9 rounded-full bg-white p-0.5 object-contain border border-[#1E8A5E] shadow-sm flex-shrink-0"
+              />
               <div>
                 <div className="text-xs font-bold text-white tracking-tight">Saf Shikan Admin</div>
                 <div className="text-[10px] text-emerald-300/90 font-semibold uppercase tracking-wider">
@@ -131,17 +134,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
             >
               <LogOut className="w-4 h-4 rotate-180" />
             </button>
-          </div>
-
-          <div className="pt-2 border-t border-[#0D5C3E]/60 space-y-1">
-            <div className="flex items-center justify-between px-2.5 py-2 rounded-lg bg-[#0B4F36]/80 text-[11px] text-emerald-200/80 hover:text-white transition-colors cursor-default border border-[#0D5C3E]">
-              <span>Admin Operational Portal</span>
-              <ExternalLink className="w-3 h-3 text-emerald-300/60 flex-shrink-0" />
-            </div>
-            <div className="flex items-center justify-between px-2.5 py-2 rounded-lg bg-[#0B4F36]/80 text-[11px] text-emerald-200/80 hover:text-white transition-colors cursor-default border border-[#0D5C3E]">
-              <span>Operator Flight / Attendance</span>
-              <ExternalLink className="w-3 h-3 text-emerald-300/60 flex-shrink-0" />
-            </div>
           </div>
         </div>
       </aside>

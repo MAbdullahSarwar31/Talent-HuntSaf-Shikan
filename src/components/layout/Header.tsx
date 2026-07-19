@@ -36,9 +36,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav }) => {
       <div className="flex items-center gap-4 sm:gap-6">
         {/* User Profile Badge */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="w-9 h-9 rounded-full bg-[#136C4A] text-white font-black flex items-center justify-center text-xs shadow-sm flex-shrink-0">
-            S
-          </div>
+          <img
+            src="/logo.png"
+            alt="SAF SHIKAN"
+            className="w-9 h-9 rounded-full bg-white p-0.5 object-contain shadow-sm flex-shrink-0 border border-[#D8E8E0]"
+          />
           <div className="hidden sm:block">
             <div className="text-xs font-bold text-[#0B4F36] leading-tight">Saf Shikan Admin</div>
             <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
