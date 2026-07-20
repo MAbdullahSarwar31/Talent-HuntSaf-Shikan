@@ -11,7 +11,6 @@ import { CropProfitabilityChart } from '../components/overview/CropProfitability
 import { TopLeakageCard } from '../components/overview/TopLeakageCard';
 import { RecentMissionsTable } from '../components/overview/RecentMissionsTable';
 import { formatPKR } from '../utils/formatters';
-import { DollarSign, TrendingUp, AlertTriangle, Activity, Plane } from 'lucide-react';
 
 export const OverviewPage: React.FC = () => {
   const [missions, setMissions] = useState<Mission[]>([]);
@@ -114,7 +113,6 @@ export const OverviewPage: React.FC = () => {
           value={formatPKR(totalRevenue, true)}
           subtitle="25 completed contracts"
           trend={{ value: '+14.2% vs last mo', isPositive: true }}
-          icon={<DollarSign className="w-5 h-5" />}
           variant="positive"
         />
         <StatCard
@@ -122,7 +120,6 @@ export const OverviewPage: React.FC = () => {
           value={formatPKR(totalCost, true)}
           subtitle="Itemized operational spend"
           trend={{ value: '-2.4% efficiency improvement', isPositive: true }}
-          icon={<Activity className="w-5 h-5" />}
           variant="default"
         />
         <StatCard
@@ -130,7 +127,6 @@ export const OverviewPage: React.FC = () => {
           value={`${netMarginPercentage.toFixed(1)}%`}
           subtitle={`Surplus: ${formatPKR(netProfit, true)}`}
           trend={{ value: '+4.8% net yield', isPositive: true }}
-          icon={<TrendingUp className="w-5 h-5" />}
           variant={netMarginPercentage >= 35 ? 'positive' : 'warning'}
         />
         <StatCard
@@ -138,7 +134,6 @@ export const OverviewPage: React.FC = () => {
           value={`${leakagePercentage.toFixed(1)}%`}
           subtitle={`Lost: ${formatPKR(totalLeakage, true)}`}
           trend={{ value: 'Travel & retry friction', isPositive: false }}
-          icon={<AlertTriangle className="w-5 h-5" />}
           variant="critical"
         />
         <StatCard
@@ -146,7 +141,6 @@ export const OverviewPage: React.FC = () => {
           value={`${fleetUtilizationRate.toFixed(0)}%`}
           subtitle={`${activeDronesCount} of ${drones.length} drones flight-ready`}
           trend={{ value: '2 in heavy maintenance', isPositive: false }}
-          icon={<Plane className="w-5 h-5" />}
           variant="warning"
         />
       </div>
