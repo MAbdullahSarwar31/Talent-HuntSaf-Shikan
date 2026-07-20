@@ -52,7 +52,35 @@ export const RulesEnginePage: React.FC = () => {
         dataApi.getScoringRules(),
         dataApi.getMissions(),
       ]);
-      setRules(rList);
+
+      // Ensure all 5 categories have at least one interactive rule in our sandbox state
+      const defaultSupplementalRules: ScoringRule[] = [
+        {
+          id: 'util-rule-001',
+          name: 'Fleet Active Airborne Ratio Target',
+          weight: 25,
+          threshold_good: 75,
+          threshold_poor: 45,
+          description: 'Minimum required active airborne flight ratio before equipment is flagged for underutilization.'
+        },
+        {
+          id: 'maint-rule-001',
+          name: 'Maintenance Burden Hours Limit',
+          weight: 30,
+          threshold_good: 20,
+          threshold_poor: 50,
+          description: 'Maximum allowable accumulated maintenance hours before drone triggers grounded risk caps.'
+        }
+      ];
+
+      const hasUtil = rList.some(r => r.name.toLowerCase().includes('utilization') || r.name.toLowerCase().includes('flight') || r.name.toLowerCase().includes('airborne'));
+      const hasMaint = rList.some(r => r.name.toLowerCase().includes('maintenance') || r.name.toLowerCase().includes('grounded') || r.name.toLowerCase().includes('wear'));
+
+      const combinedRules = [...rList];
+      if (!hasUtil) combinedRules.push(defaultSupplementalRules[0]);
+      if (!hasMaint) combinedRules.push(defaultSupplementalRules[1]);
+
+      setRules(combinedRules);
       setMissions(mList);
     } catch (err: any) {
       console.error('Failed to load rules engine:', err);
@@ -394,39 +422,40 @@ export const RulesEnginePage: React.FC = () => {
           </span>
         </div>
 
-        {categorizedGroups.map((group) => (
-          <div
-            key={group.id}
-            className="bg-white border border-slate-200/90 rounded-2xl shadow-sm overflow-hidden transition-all duration-200 hover:border-slate-300"
-          >
-            {/* Category Banner Header */}
-            <div className="p-5 bg-slate-50/80 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center shadow-xs flex-shrink-0">
-                  {group.icon}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base font-black text-slate-900 tracking-tight">{group.title}</h3>
-                    <span className={clsx('text-[10px] font-black uppercase px-2 py-0.5 rounded border', group.badgeColor)}>
-                      {group.badge}
-                    </span>
+        {categorizedGroups.map((group) => {
+          if (group.rules.length === 0) return null;
+          return (
+            <div
+              key={group.id}
+              className="bg-white border border-slate-200/90 rounded-2xl shadow-sm overflow-hidden transition-all duration-200 hover:border-slate-300"
+            >
+              {/* Category Banner Header */}
+              <div className="p-5 bg-slate-50/80 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center shadow-xs flex-shrink-0">
+                    {group.icon}
                   </div>
-                  <p className="text-xs text-slate-600 font-medium mt-0.5">{group.description}</p>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-black text-slate-900 tracking-tight">{group.title}</h3>
+                      <span className={clsx('text-[10px] font-black uppercase px-2 py-0.5 rounded border', group.badgeColor)}>
+                        {group.badge}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-600 font-medium mt-0.5">{group.description}</p>
+                  </div>
+                </div>
+
+                <div className="text-[11px] text-slate-500 font-semibold flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-2xs self-start sm:self-auto">
+                  <HelpCircle className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                  <span className="truncate max-w-[280px] sm:max-w-[340px]" title={group.logicExplanation}>
+                    {group.logicExplanation}
+                  </span>
                 </div>
               </div>
 
-              <div className="text-[11px] text-slate-500 font-semibold flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-2xs self-start sm:self-auto">
-                <HelpCircle className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                <span className="truncate max-w-[280px] sm:max-w-[340px]" title={group.logicExplanation}>
-                  {group.logicExplanation}
-                </span>
-              </div>
-            </div>
-
-            {/* Category Rules Content */}
-            <div className="p-5 sm:p-6">
-              {group.rules.length > 0 ? (
+              {/* Category Rules Content */}
+              <div className="p-5 sm:p-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {group.rules.map(({ rule, index }) => (
                     <div
@@ -502,28 +531,10 @@ export const RulesEnginePage: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              ) : (
-                /* Fallback info box when category rules are handled via system matrix or not in active DB rows */
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <div className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                      <ShieldCheck className="w-4 h-4 text-emerald-600" /> Deterministic Category Logic Active
-                    </div>
-                    <p className="text-xs text-slate-600 font-medium">
-                      {group.logicExplanation}
-                    </p>
-                    <span className="text-[11px] text-emerald-800 font-bold block pt-1">
-                      {group.defaultThresholdNote}
-                    </span>
-                  </div>
-                  <span className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 whitespace-nowrap shadow-2xs">
-                    System Built-in Matrix
-                  </span>
-                </div>
-              )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Bottom Action Strip */}
