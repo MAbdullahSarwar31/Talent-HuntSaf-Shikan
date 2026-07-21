@@ -1,138 +1,153 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
+import { useUiStore } from '../../store/uiStore';
+import { logout } from '../../services/api/authService';
+import { ROUTES } from '../../constants/routes';
 import {
-  BarChart3,
+  LayoutDashboard,
   TrendingUp,
-  Plane,
-  Users,
-  AlertTriangle,
   Sliders,
+  AlertTriangle,
+  Users,
+  Plane,
   FileText,
-  ChevronRight,
   LogOut,
-  X
+  X,
+  Sparkles
 } from 'lucide-react';
 import clsx from 'clsx';
 
-interface SidebarProps {
-  isOpen?: boolean;
-  onClose?: () => void;
+interface SidebarLink {
+  label: string;
+  path: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
-  const navItems = [
-    { name: 'Overview', path: '/', icon: BarChart3 },
-    { name: 'Mission Profitability', path: '/missions', icon: TrendingUp },
-    { name: 'Fleet Utilization', path: '/fleet', icon: Plane },
-    { name: 'Operator Efficiency', path: '/operators', icon: Users },
-    { name: 'Leakage Analysis', path: '/leakage', icon: AlertTriangle },
-    { name: 'Scoring Rules Engine', path: '/rules', icon: Sliders },
-    { name: 'Executive Reports', path: '/reports', icon: FileText },
-  ];
+const ADMIN_BI_LINKS: SidebarLink[] = [
+  { label: 'Executive Overview', path: ROUTES.ADMIN.BI_OVERVIEW, icon: LayoutDashboard },
+  { label: 'Mission Profitability', path: ROUTES.ADMIN.BI_PROFITABILITY, icon: TrendingUp, badge: 'Live' },
+  { label: 'Scoring Rules Engine', path: ROUTES.ADMIN.BI_RULES_ENGINE, icon: Sliders, badge: 'AI' },
+  { label: 'Leakage & Loss Audit', path: ROUTES.ADMIN.BI_LEAKAGE, icon: AlertTriangle },
+  { label: 'Operator Efficiency', path: ROUTES.ADMIN.BI_OPERATORS, icon: Users },
+  { label: 'Fleet Utilization', path: ROUTES.ADMIN.BI_FLEET, icon: Plane },
+  { label: 'Executive Reports', path: ROUTES.ADMIN.BI_REPORTS, icon: FileText },
+];
+
+export const Sidebar: React.FC = () => {
+  const { user, clearAuth } = useAuthStore();
+  const { sidebarOpen, setSidebarOpen } = useUiStore();
+
+  const handleLogout = async () => {
+    await logout();
+    clearAuth();
+    if (typeof window !== 'undefined') window.location.href = '/login';
+  };
 
   return (
     <>
-      {/* Mobile Backdrop Overlay */}
-      {isOpen && (
+      {/* Mobile Backdrop */}
+      {sidebarOpen && (
         <div
-          onClick={onClose}
-          className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
-          aria-hidden="true"
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden animate-fade-in"
         />
       )}
 
-      {/* Sidebar Panel: Fixed drawer on mobile, static aside on desktop */}
+      {/* Sidebar Container */}
       <aside
         className={clsx(
-          'bg-[#0B4F36] border-r border-[#0D5C3E] text-emerald-100 flex flex-col justify-between flex-shrink-0 min-h-screen shadow-2xl md:shadow-xl select-none z-50',
-          'fixed inset-y-0 left-0 w-72 transition-transform duration-300 ease-in-out md:static md:translate-x-0 md:w-64',
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+          'fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-[#0D3B2E] text-white shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0',
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
-        <div>
-          {/* Brand Header matching SAF SHIKAN Admin Portal */}
-          <div className="h-20 flex items-center justify-between px-6 border-b border-[#0D5C3E] gap-3 bg-[#083D2A]/80">
-            <div className="flex items-center gap-3.5">
-              <img
-                src="/logo.png"
-                alt="SAF SHIKAN Logo"
-                className="w-10 h-10 rounded-xl bg-white p-0.5 object-contain shadow-md flex-shrink-0"
-              />
-              <div>
-                <div className="font-black text-white text-sm tracking-wider flex items-center gap-1.5">
-                  SAF SHIKAN
-                  <span className="text-[10px] bg-emerald-400/20 text-emerald-300 px-1.5 py-0.5 rounded font-bold uppercase border border-emerald-400/30">
-                    BI
-                  </span>
-                </div>
-                <div className="text-[11px] text-emerald-200/80 font-semibold tracking-wide">ADMIN PORTAL</div>
-              </div>
+        {/* Brand Header */}
+        <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 font-display text-xl font-bold text-[#0D3B2E] shadow-lg shadow-emerald-500/20">
+              S
             </div>
-
-            {/* Mobile Drawer Close Button */}
-            <button
-              onClick={onClose}
-              className="p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-[#136C4A] md:hidden transition-colors"
-              aria-label="Close navigation menu"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div>
+              <span className="font-display text-lg font-bold tracking-tight text-white">SAF SHIKAN</span>
+              <span className="block text-[10px] font-semibold tracking-wider text-emerald-400 uppercase">BI Portal</span>
+            </div>
           </div>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="rounded-lg p-1.5 text-white/70 hover:bg-white/10 hover:text-white lg:hidden"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
 
-          {/* Navigation Links */}
-          <nav className="px-3 py-4 space-y-1.5 overflow-y-auto">
-            <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-emerald-300/70">
-              BI Analytics & Insights
-            </div>
-            {navItems.map((item) => {
-              const Icon = item.icon;
+        {/* Navigation Section */}
+        <div className="flex-1 overflow-y-auto px-4 py-6">
+          <div className="mb-2 px-3 text-xs font-semibold tracking-wider text-emerald-300/60 uppercase">
+            Executive Analytics
+          </div>
+          <nav className="space-y-1">
+            {ADMIN_BI_LINKS.map((link) => {
+              const IconComponent = link.icon;
               return (
                 <NavLink
-                  key={item.path}
-                  to={item.path}
-                  end={item.path === '/'}
-                  onClick={onClose}
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) =>
                     clsx(
-                      'flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 group min-h-[44px]',
+                      'group flex items-center justify-between rounded-xl px-3.5 py-3 text-sm font-medium transition-all duration-200',
                       isActive
-                        ? 'bg-[#136C4A] text-white shadow-md border border-[#1E8A5E]'
-                        : 'text-emerald-100/80 hover:text-white hover:bg-[#0E5C3F]'
+                        ? 'bg-gradient-to-r from-emerald-500/20 to-emerald-600/10 text-emerald-300 shadow-sm ring-1 ring-emerald-500/30 font-semibold'
+                        : 'text-gray-300 hover:bg-white/5 hover:text-white'
                     )
                   }
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className="w-4 h-4 flex-shrink-0 opacity-85 group-hover:opacity-100" />
-                    <span>{item.name}</span>
+                    <IconComponent className="h-5 w-5 shrink-0 transition-transform group-hover:scale-110" />
+                    <span>{link.label}</span>
                   </div>
-                  <ChevronRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {link.badge && (
+                    <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-300 ring-1 ring-emerald-400/30">
+                      {link.badge}
+                    </span>
+                  )}
                 </NavLink>
               );
             })}
           </nav>
+
+          <div className="mt-8 rounded-2xl bg-gradient-to-br from-emerald-900/40 to-black/40 p-4 ring-1 ring-emerald-500/20">
+            <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs mb-1">
+              <Sparkles className="h-4 w-4" />
+              <span>SaaS BI Integrated</span>
+            </div>
+            <p className="text-[11px] text-gray-300 leading-relaxed">
+              Fully connected to production Supabase RPC tables & real-time telemetry.
+            </p>
+          </div>
         </div>
 
-        {/* Bottom User/Ecosystem Bar matching screenshot */}
-        <div className="p-4 border-t border-[#0D5C3E] bg-[#083D2A]/90">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img
-                src="/logo.png"
-                alt="SAF SHIKAN"
-                className="w-9 h-9 rounded-full bg-white p-0.5 object-contain border border-[#1E8A5E] shadow-sm flex-shrink-0"
-              />
-              <div>
-                <div className="text-xs font-bold text-white tracking-tight">Saf Shikan Admin</div>
-                <div className="text-[10px] text-emerald-300/90 font-semibold uppercase tracking-wider">
-                  ADMIN ACCESS
-                </div>
+        {/* User Profile Footer */}
+        <div className="border-t border-white/10 p-4">
+          <div className="flex items-center justify-between rounded-xl bg-white/5 p-3 ring-1 ring-white/10">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-300 font-bold text-sm ring-1 ring-emerald-400/30">
+                {user?.fullName?.charAt(0) || 'A'}
+              </div>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-white">{user?.fullName || 'Executive User'}</p>
+                <p className="truncate text-[11px] font-medium text-emerald-400 uppercase tracking-wide">
+                  {user?.role || 'ADMIN'}
+                </p>
               </div>
             </div>
             <button
-              title="SaaS Portal Navigation"
-              className="p-2 rounded-lg hover:bg-[#136C4A] text-emerald-200 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              onClick={handleLogout}
+              title="Logout"
+              className="rounded-lg p-2 text-gray-400 hover:bg-white/10 hover:text-red-400 transition-colors"
             >
-              <LogOut className="w-4 h-4 rotate-180" />
+              <LogOut className="h-4 w-4" />
             </button>
           </div>
         </div>

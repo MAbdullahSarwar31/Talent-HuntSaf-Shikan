@@ -1,24 +1,34 @@
 import { createClient } from '@supabase/supabase-js';
+import config from '../config';
 import type { Mission, Drone, Operator, ScoringRule, MaintenanceLog } from '../types';
 import { computeMissionProfitabilityScore } from '../utils/scoring';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-
-export const isRealSupabase = Boolean(supabaseUrl && supabaseAnonKey && supabaseUrl !== 'your_supabase_url');
+export const isRealSupabase = Boolean(
+  config.supabaseUrl &&
+  config.supabaseAnonKey &&
+  config.supabaseUrl !== 'your_supabase_url' &&
+  config.supabaseUrl !== 'https://your-project.supabase.co'
+);
 
 export const supabase = isRealSupabase
-  ? createClient(supabaseUrl, supabaseAnonKey)
+  ? createClient(config.supabaseUrl, config.supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    })
   : null;
 
 /**
  * Data Access Layer API
  * Strictly queries live Supabase Postgres database.
+ * Re-exported from supabase.ts and biService.ts for native SaaS service layer alignment.
  */
 export const dataApi = {
   async getMissions(): Promise<Mission[]> {
     if (!supabase) {
-      throw new Error('Supabase client is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env or Vercel project settings.');
+      throw new Error('Supabase client is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
     }
     const { data, error } = await supabase
       .from('missions')
@@ -34,7 +44,6 @@ export const dataApi = {
     if (error) throw error;
     if (!data) return [];
 
-    // Ensure scores are attached or compute on the fly if missing in DB
     return data.map((m: any) => {
       if (!m.profitability_score || (!m.profitability_score.score && m.profitability_score.score !== 0)) {
         const scoringRes = computeMissionProfitabilityScore(m, m.costs || []);
@@ -52,7 +61,7 @@ export const dataApi = {
 
   async getMissionById(id: string): Promise<Mission | null> {
     if (!supabase) {
-      throw new Error('Supabase client is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env or Vercel project settings.');
+      throw new Error('Supabase client is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
     }
     const { data, error } = await supabase
       .from('missions')
@@ -85,7 +94,7 @@ export const dataApi = {
 
   async getDrones(): Promise<Drone[]> {
     if (!supabase) {
-      throw new Error('Supabase client is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env or Vercel project settings.');
+      throw new Error('Supabase client is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
     }
     const { data, error } = await supabase.from('drones').select('*').order('serial_number');
     if (error) throw error;
@@ -94,7 +103,7 @@ export const dataApi = {
 
   async getOperators(): Promise<Operator[]> {
     if (!supabase) {
-      throw new Error('Supabase client is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+      throw new Error('Supabase client is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
     }
     const { data, error } = await supabase.from('operators').select('*').order('full_name');
     if (error) throw error;
@@ -103,7 +112,7 @@ export const dataApi = {
 
   async getScoringRules(): Promise<ScoringRule[]> {
     if (!supabase) {
-      throw new Error('Supabase client is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+      throw new Error('Supabase client is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
     }
     const { data, error } = await supabase.from('scoring_rules').select('*').order('name');
     if (error) throw error;
@@ -112,7 +121,7 @@ export const dataApi = {
 
   async getMaintenanceLogs(): Promise<MaintenanceLog[]> {
     if (!supabase) {
-      throw new Error('Supabase client is not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+      throw new Error('Supabase client is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
     }
     const { data, error } = await supabase.from('maintenance_logs').select('*, drone:drones(*)').order('date', { ascending: false });
     if (error) throw error;
