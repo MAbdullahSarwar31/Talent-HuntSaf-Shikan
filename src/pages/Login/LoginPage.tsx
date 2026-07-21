@@ -6,8 +6,8 @@ import { ROLE_DEFAULT_ROUTES } from '../../constants/roles';
 import { Lock, Mail, ShieldCheck, ArrowRight, AlertCircle } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState('executive@safshikan.com');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -150,13 +150,6 @@ export const LoginPage: React.FC = () => {
               )}
             </button>
           </form>
-
-          <div className="rounded-xl bg-emerald-50/70 p-4 ring-1 ring-emerald-200/60 text-center">
-            <p className="text-xs text-emerald-800 font-medium">
-              <span className="font-bold">Sandbox Mode Demo Credentials:</span><br />
-              Email: <code className="bg-white px-1.5 py-0.5 rounded text-[#0D3B2E] font-semibold">executive@safshikan.com</code>
-            </p>
-          </div>
         </div>
       </div>
     </div>

@@ -4,19 +4,11 @@ import type { AuthUser, LoginRequest, LoginResponse } from '../../types/auth';
 
 /**
  * Resolves authenticated user profile from Supabase profiles table, mapping database strings to UserRole.
- * Conforms strictly to SaaS platform authService.ts profile query behavior.
+ * Conforms strictly to SaaS platform authService.ts profile query behavior without mock bypass.
  */
 export async function resolveAuthUser(userId: string, email: string): Promise<AuthUser> {
-  if (!supabase || userId === 'demo-admin-id') {
-    // Sandbox / Mock local fallback for offline BI demonstration
-    return {
-      id: userId || 'demo-admin-id',
-      email: email || 'executive@safshikan.com',
-      fullName: 'Sovereign Executive Demo',
-      role: UserRole.ADMIN,
-      avatarUrl: null,
-      tenantId: 'safshikan-hq',
-    };
+  if (!supabase) {
+    throw new Error('Supabase client is not configured. Please verify environment variables.');
   }
 
   try {
@@ -68,24 +60,12 @@ export async function resolveAuthUser(userId: string, email: string): Promise<Au
 }
 
 export async function login(req: LoginRequest): Promise<LoginResponse> {
-  const emailClean = req.email.toLowerCase().trim();
-  const isDemoCredential =
-    emailClean === 'executive@safshikan.com' ||
-    emailClean === 'demo@safshikan.com' ||
-    (req.password === 'password123' && emailClean.includes('safshikan.com'));
-
-  if (!supabase || isDemoCredential) {
-    // Offline sandbox or demo pass-through login
-    const user = await resolveAuthUser('demo-admin-id', req.email);
-    return {
-      accessToken: 'demo-bearer-token-xyz',
-      refreshToken: 'demo-refresh-token-xyz',
-      user,
-    };
+  if (!supabase) {
+    throw new Error('Supabase client is not configured. Please verify environment variables.');
   }
 
   const { data, error } = await supabase.auth.signInWithPassword({
-    email: req.email,
+    email: req.email.trim(),
     password: req.password,
   });
 
