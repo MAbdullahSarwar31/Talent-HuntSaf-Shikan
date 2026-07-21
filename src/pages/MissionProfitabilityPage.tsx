@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Mission } from '../types';
+import { ROUTES } from '../constants/routes';
 import { dataApi } from '../lib/supabase';
 import { PageHeader } from '../components/common/PageHeader';
 import { StatCard } from '../components/common/StatCard';
@@ -58,9 +59,9 @@ export const MissionProfitabilityPage: React.FC = () => {
     return missions.filter((m) => {
       const matchesSearch =
         searchQuery.trim() === '' ||
-        m.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        m.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (m.code && m.code.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (m.title && m.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (m.location && m.location.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (m.operator?.full_name || '').toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesProvince = selectedProvince === 'All' || m.province === selectedProvince;
@@ -234,7 +235,6 @@ export const MissionProfitabilityPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Directory Table */}
       {filteredMissions.length === 0 ? (
         <EmptyState
           title="No missions match filter criteria"
@@ -243,19 +243,19 @@ export const MissionProfitabilityPage: React.FC = () => {
           onAction={resetFilters}
         />
       ) : (
-        <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-white border border-slate-200/80 rounded-xl overflow-hidden shadow-2xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/90 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold whitespace-nowrap">
-                  <th className="py-4 px-6">Mission Code / Title</th>
-                  <th className="py-4 px-4">Date & Sector</th>
-                  <th className="py-4 px-4">Hardware & Operator</th>
-                  <th className="py-4 px-4 text-right">Gross Revenue</th>
-                  <th className="py-4 px-4 text-right">Total Cost</th>
-                  <th className="py-4 px-4 text-right">Net Margin</th>
-                  <th className="py-4 px-6 text-center">BI Score & Band</th>
-                  <th className="py-4 px-4 text-right">Audit</th>
+                <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-500 font-bold whitespace-nowrap">
+                  <th className="py-3.5 px-6">Mission Code / Title</th>
+                  <th className="py-3.5 px-4">Sector & Crop</th>
+                  <th className="py-3.5 px-4">Hardware & Operator</th>
+                  <th className="py-3.5 px-4 text-right">Gross Revenue</th>
+                  <th className="py-3.5 px-4 text-right">Total Cost</th>
+                  <th className="py-3.5 px-4 text-right">Net Margin</th>
+                  <th className="py-3.5 px-6 text-center">BI Score & Band</th>
+                  <th className="py-3.5 px-4 text-right">Audit</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-xs">
@@ -271,7 +271,7 @@ export const MissionProfitabilityPage: React.FC = () => {
                   return (
                     <tr
                       key={m.id}
-                      onClick={() => navigate(`/missions/${m.id}`)}
+                      onClick={() => navigate(`${ROUTES.ADMIN.BI_MISSIONS}/${m.id}`)}
                       className="hover:bg-slate-50/90 transition-colors cursor-pointer group"
                     >
                       <td className="py-4 px-6 whitespace-nowrap">

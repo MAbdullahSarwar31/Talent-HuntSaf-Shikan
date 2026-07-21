@@ -38,7 +38,10 @@ export const AppRouter: React.FC = () => {
           <Route element={<ProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.MANAGER]} />}>
             <Route path={ROUTES.ADMIN.BI_OVERVIEW} element={<OverviewPage />} />
             <Route path={ROUTES.ADMIN.BI_PROFITABILITY} element={<MissionProfitabilityPage />} />
+            <Route path={ROUTES.ADMIN.BI_MISSIONS} element={<MissionProfitabilityPage />} />
             <Route path={`${ROUTES.ADMIN.BI_MISSIONS}/:id`} element={<MissionDetailPage />} />
+            <Route path="/missions" element={<MissionProfitabilityPage />} />
+            <Route path="/missions/:id" element={<MissionDetailPage />} />
             <Route path={ROUTES.ADMIN.BI_FLEET} element={<FleetUtilizationPage />} />
             <Route path={ROUTES.ADMIN.BI_OPERATORS} element={<OperatorEfficiencyPage />} />
             <Route path={ROUTES.ADMIN.BI_LEAKAGE} element={<LeakageAnalysisPage />} />

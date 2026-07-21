@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { Mission } from '../types';
+import { ROUTES } from '../constants/routes';
 import { dataApi } from '../lib/supabase';
 import { generateExecutiveInsight } from '../lib/ai';
 import { PageHeader } from '../components/common/PageHeader';
@@ -81,7 +82,7 @@ export const MissionDetailPage: React.FC = () => {
     return (
       <div className="space-y-6">
         <button
-          onClick={() => navigate('/missions')}
+          onClick={() => navigate(ROUTES.ADMIN.BI_PROFITABILITY)}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Mission Directory
@@ -95,7 +96,7 @@ export const MissionDetailPage: React.FC = () => {
     return (
       <div className="space-y-6">
         <button
-          onClick={() => navigate('/missions')}
+          onClick={() => navigate(ROUTES.ADMIN.BI_PROFITABILITY)}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Mission Directory
@@ -107,7 +108,7 @@ export const MissionDetailPage: React.FC = () => {
             title="Mission Not Found"
             description={`No mission ledger found corresponding to ID "${id}". It may have been archived or removed.`}
             actionLabel="Return to Directory"
-            onAction={() => navigate('/missions')}
+            onAction={() => navigate(ROUTES.ADMIN.BI_PROFITABILITY)}
           />
         )}
       </div>
@@ -148,7 +149,7 @@ export const MissionDetailPage: React.FC = () => {
       {/* Navigation & Header */}
       <div>
         <button
-          onClick={() => navigate('/missions')}
+          onClick={() => navigate(ROUTES.ADMIN.BI_PROFITABILITY)}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-900 transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Mission Directory

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Mission } from '../../types';
+import { ROUTES } from '../../constants/routes';
 import { ScoreBadge } from '../common/ScoreBadge';
 import { formatPKR } from '../../utils/formatters';
 import { ArrowUpRight, Plane, User, MapPin } from 'lucide-react';
@@ -24,7 +25,7 @@ export const RecentMissionsTable: React.FC<RecentMissionsTableProps> = ({ missio
           </p>
         </div>
         <button
-          onClick={() => navigate('/missions')}
+          onClick={() => navigate(ROUTES.ADMIN.BI_PROFITABILITY)}
           className="text-xs font-bold text-emerald-600 hover:text-emerald-700 inline-flex items-center gap-1 transition-colors self-start sm:self-auto min-h-[44px] sm:min-h-0 py-1"
         >
           View All {missions.length} Missions <ArrowUpRight className="w-3.5 h-3.5" />
@@ -57,7 +58,7 @@ export const RecentMissionsTable: React.FC<RecentMissionsTableProps> = ({ missio
               return (
                 <tr
                   key={m.id}
-                  onClick={() => navigate(`/missions/${m.id}`)}
+                  onClick={() => navigate(`${ROUTES.ADMIN.BI_MISSIONS}/${m.id}`)}
                   className="hover:bg-slate-50/90 transition-colors cursor-pointer group"
                 >
                   <td className="py-3.5 px-6 whitespace-nowrap">
