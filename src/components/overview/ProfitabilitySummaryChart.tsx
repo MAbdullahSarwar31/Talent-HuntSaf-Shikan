@@ -25,7 +25,8 @@ export const ProfitabilitySummaryChart: React.FC<ProfitabilitySummaryChartProps>
     const profit = revenue - totalCost;
 
     return {
-      name: m.code.replace('MSN-2026-', '#'),
+      name: m.code.replace(/^(MSN|SS)-202[56]-/, '#') || m.code,
+      code: m.code,
       location: m.location,
       crop: m.crop_type,
       Revenue: revenue,
@@ -80,21 +81,20 @@ export const ProfitabilitySummaryChart: React.FC<ProfitabilitySummaryChartProps>
                 color: '#0B3B24',
                 fontWeight: 'black',
                 fontSize: '13px',
-                marginBottom: '4px',
+                marginBottom: '6px',
                 borderBottom: '1px solid #E3ECE7',
-                paddingBottom: '4px'
+                paddingBottom: '6px'
               }}
               itemStyle={{
-                color: '#136C4A',
                 fontWeight: 'bold',
                 fontSize: '12px',
-                paddingTop: '2px'
+                paddingTop: '3px'
               }}
-              formatter={(value: any) => [formatPKR(Number(value)), '']}
+              formatter={(value: any, name: any) => [formatPKR(Number(value)), name]}
               labelFormatter={(label, payload) => {
                 if (payload && payload[0]) {
                   const data = payload[0].payload;
-                  return `Mission ${label} (${data.crop} - ${data.location})`;
+                  return `Mission ${data.code || label} (${data.crop} - ${data.location})`;
                 }
                 return `Mission ${label}`;
               }}

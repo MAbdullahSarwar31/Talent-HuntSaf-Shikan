@@ -99,14 +99,13 @@ export const CropProfitabilityChart: React.FC<CropProfitabilityChartProps> = ({ 
                 paddingBottom: '4px'
               }}
               itemStyle={{
-                color: '#136C4A',
                 fontWeight: 'bold',
                 fontSize: '12px',
                 paddingTop: '2px'
               }}
               formatter={(value: any, name: any) => [
-                name === 'MarginPct' ? `${value}%` : formatPKR(Number(value)),
-                name === 'AvgRevenue' ? 'Avg Revenue' : name === 'AvgCost' ? 'Avg Cost' : 'Net Margin %'
+                name === 'Net Margin %' || name === 'MarginPct' ? `${value}%` : formatPKR(Number(value)),
+                name === 'AvgRevenue' ? 'Avg Revenue' : name === 'AvgCost' || name === 'Avg Total Cost' ? 'Avg Total Cost' : 'Net Margin %'
               ]}
               labelFormatter={(label, payload) => {
                 if (payload && payload[0]) {
