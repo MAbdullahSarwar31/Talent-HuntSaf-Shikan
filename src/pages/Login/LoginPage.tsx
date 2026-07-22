@@ -44,9 +44,7 @@ export const LoginPage: React.FC = () => {
         <div className="absolute top-0 right-0 -mt-24 -mr-24 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         
         <div className="flex items-center gap-3 relative z-10">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 font-display text-2xl font-bold text-[#0D3B2E] shadow-lg">
-            S
-          </div>
+          <img src="/logo.png" alt="SAF SHIKAN Logo" className="h-11 w-auto object-contain" />
           <div>
             <span className="font-display text-xl font-bold tracking-tight">SAF SHIKAN</span>
             <span className="block text-xs font-semibold tracking-wider text-emerald-400 uppercase">Mission Profitability BI</span>
@@ -77,9 +75,7 @@ export const LoginPage: React.FC = () => {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center lg:text-left">
             <div className="flex lg:hidden items-center justify-center gap-3 mb-6">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0D3B2E] text-white font-display text-xl font-bold shadow-md">
-                S
-              </div>
+              <img src="/logo.png" alt="SAF SHIKAN Logo" className="h-10 w-auto object-contain" />
               <span className="font-display text-xl font-bold text-gray-900">SAF SHIKAN BI</span>
             </div>
             <h2 className="font-display text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">

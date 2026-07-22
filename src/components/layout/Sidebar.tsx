@@ -13,8 +13,7 @@ import {
   Plane,
   FileText,
   LogOut,
-  X,
-  Sparkles
+  X
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -27,8 +26,8 @@ interface SidebarLink {
 
 const ADMIN_BI_LINKS: SidebarLink[] = [
   { label: 'Executive Overview', path: ROUTES.ADMIN.BI_OVERVIEW, icon: LayoutDashboard },
-  { label: 'Mission Profitability', path: ROUTES.ADMIN.BI_PROFITABILITY, icon: TrendingUp, badge: 'Live' },
-  { label: 'Scoring Rules Engine', path: ROUTES.ADMIN.BI_RULES_ENGINE, icon: Sliders, badge: 'AI' },
+  { label: 'Mission Profitability', path: ROUTES.ADMIN.BI_PROFITABILITY, icon: TrendingUp },
+  { label: 'Scoring Rules Engine', path: ROUTES.ADMIN.BI_RULES_ENGINE, icon: Sliders },
   { label: 'Leakage & Loss Audit', path: ROUTES.ADMIN.BI_LEAKAGE, icon: AlertTriangle },
   { label: 'Operator Efficiency', path: ROUTES.ADMIN.BI_OPERATORS, icon: Users },
   { label: 'Fleet Utilization', path: ROUTES.ADMIN.BI_FLEET, icon: Plane },
@@ -65,9 +64,7 @@ export const Sidebar: React.FC = () => {
         {/* Brand Header */}
         <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 font-display text-xl font-bold text-[#0D3B2E] shadow-lg shadow-emerald-500/20">
-              S
-            </div>
+            <img src="/logo.png" alt="SAF SHIKAN Logo" className="h-10 w-auto object-contain" />
             <div>
               <span className="font-display text-lg font-bold tracking-tight text-white">SAF SHIKAN</span>
               <span className="block text-[10px] font-semibold tracking-wider text-emerald-400 uppercase">BI Portal</span>
@@ -107,25 +104,10 @@ export const Sidebar: React.FC = () => {
                     <IconComponent className="h-5 w-5 shrink-0 transition-transform group-hover:scale-110" />
                     <span>{link.label}</span>
                   </div>
-                  {link.badge && (
-                    <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-300 ring-1 ring-emerald-400/30">
-                      {link.badge}
-                    </span>
-                  )}
                 </NavLink>
               );
             })}
           </nav>
-
-          <div className="mt-8 rounded-2xl bg-gradient-to-br from-emerald-900/40 to-black/40 p-4 ring-1 ring-emerald-500/20">
-            <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs mb-1">
-              <Sparkles className="h-4 w-4" />
-              <span>SaaS BI Integrated</span>
-            </div>
-            <p className="text-[11px] text-gray-300 leading-relaxed">
-              Fully connected to production Supabase RPC tables & real-time telemetry.
-            </p>
-          </div>
         </div>
 
         {/* User Profile Footer */}
