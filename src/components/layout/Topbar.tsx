@@ -1,7 +1,7 @@
 import React from 'react';
 import { useUiStore } from '../../store/uiStore';
 import { useAuthStore } from '../../store/authStore';
-import { Menu, Building2 } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 export const Topbar: React.FC = () => {
   const { toggleSidebar } = useUiStore();
@@ -16,15 +16,6 @@ export const Topbar: React.FC = () => {
         >
           <Menu className="h-5 w-5" />
         </button>
-        <div className="flex items-center gap-2.5">
-          <Building2 className="h-5 w-5 text-[#0D3B2E]" />
-          <span className="font-display text-sm font-bold text-gray-900 tracking-tight">
-            SAF SHIKAN Agro Portal
-          </span>
-          <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-[#0D3B2E] border border-emerald-200">
-            BI Analytics Engine
-          </span>
-        </div>
       </div>
 
       <div className="flex items-center gap-3">
